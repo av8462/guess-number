@@ -23,6 +23,18 @@ const displayMessage = message => {
 
 console.log(secretNumber);
 
+function init() {
+  highscore = 0;
+  score = 20;
+  guessElement.value = '';
+  messageElement.textContent = 'Start guessing...';
+  scoreElement.textContent = score;
+  highscoreElement.textContent = highscore;
+  bodyElement.style.backgroundColor = '#222';
+  numberElement.style.width = '15rem';
+  numberElement.textContent = '?';
+}
+
 document.querySelector('.check').addEventListener('click', () => {
   const guess = Number(guessElement.value);
 
@@ -53,30 +65,36 @@ document.querySelector('.check').addEventListener('click', () => {
     displayMessage(message);
   }
 
-  // if (guess > secretNumber) {
-  //   displayMessage('Too high!');
+  if (guess > secretNumber) {
+    displayMessage('Too high!');
 
-  //   if (score > 1) {
-  //     score--;
-  //     scoreElement.textContent = score;
-  //   } else {
-  //     displayMessage('You lost the game. Try again!');
-  //     scoreElement.textContent = 0;
-  //   }
+    if (score > 1) {
+      score--;
+      scoreElement.textContent = score;
+    } else {
+      displayMessage('You lost the game. Try again!');
+      scoreElement.textContent = 0;
+    }
 
-  //   return;
-  // }
+    return;
+  }
 
-  // if (guess < secretNumber) {
-  //   displayMessage('Too low!');
-  //   if (score > 1) {
-  //     score--;
-  //     scoreElement.textContent = score;
-  //   } else {
-  //     displayMessage('You lost the game. Try again!');
-  //     scoreElement.textContent = 0;
-  //   }
+  if (guess < secretNumber) {
+    displayMessage('Too low!');
+    if (score > 1) {
+      score--;
+      scoreElement.textContent = score;
+    } else {
+      displayMessage('You lost the game. Try again!');
+      scoreElement.textContent = 0;
+    }
 
-  //   return;
-  // }
+    return;
+  }
+});
+
+document.querySelector('.again').addEventListener('click', () => {
+  const guess = Number(guessElement.value);
+
+  init();
 });
